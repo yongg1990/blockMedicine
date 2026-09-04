@@ -325,14 +325,14 @@ const iconKey = computed(() => {
 
 /* Large size for Bottom 5 Footer Cards */
 .tech-icon-container.large {
-  width: 50px;
-  height: 50px;
+  width: 64px;
+  height: 64px;
   border-radius: 6px;
 }
 
 .tech-icon-container.large .tech-svg {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
 }
 
 /* Ambient Halo */

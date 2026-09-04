@@ -773,7 +773,7 @@ onBeforeUnmount(() => {
           <!-- Outer Wing shapes -->
           <polygon points="0,0 600,0 650,48 750,48 780,68 1140,68 1170,48 1270,48 1320,0 1920,0 1920,38 1330,38 1280,72 640,72 590,38 0,38" fill="url(#headerFillGrad)" />
           <!-- High-glow Laser lines -->
-          <path d="M0,38 L590,38 L640,72 L1280,72 L1330,38 L1920,38" fill="none" stroke="url(#headerLineGrad)" stroke-width="2.5" />
+          <path d="M0,14 L520,14 L590,14 L640,68 L1280,68 L1330,14 L1400,14 L1920,14" fill="none" stroke="url(#headerLineGrad)" stroke-width="2.5" />
           <path d="M780,68 L1140,68" fill="none" stroke="url(#centerLaserGrad)" stroke-width="3.5" filter="drop-shadow(0 0 10px #38f9d7)" />
           <line x1="770" y1="48" x2="1150" y2="48" stroke="rgba(0, 240, 255, 0.35)" stroke-width="1" stroke-dasharray="6,4" />
         </svg>
@@ -790,11 +790,26 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="topbar-center">
+          <div class="title-side-decor title-side-decor-left" aria-hidden="true">
+            <span class="title-decor-line title-decor-line-short"></span>
+            <span class="title-decor-node"></span>
+            <svg class="title-decor-icon" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l7 4v8l-7 4-7-4V6l7-4Z" />
+              <path d="m8 9 4-2 4 2v5l-4 2-4-2V9Z" />
+              <path d="M12 7v9M8 9l8 5M16 9l-8 5" />
+            </svg>
+            <span class="title-decor-line"></span>
+          </div>
           <h1 class="main-title">中药区块链服务平台</h1>
-          <div class="sub-title-strip">
-            <span class="line-left"></span>
-            <span>TCM BLOCKCHAIN SERVICE PLATFORM · HIGH-TECH TELEMETRY</span>
-            <span class="line-right"></span>
+          <div class="title-side-decor title-side-decor-right" aria-hidden="true">
+            <span class="title-decor-line"></span>
+            <svg class="title-decor-icon" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l7 4v8l-7 4-7-4V6l7-4Z" />
+              <path d="m8 9 4-2 4 2v5l-4 2-4-2V9Z" />
+              <path d="M12 7v9M8 9l8 5M16 9l-8 5" />
+            </svg>
+            <span class="title-decor-node"></span>
+            <span class="title-decor-line title-decor-line-short"></span>
           </div>
         </div>
 
