@@ -1,0 +1,6 @@
+{
+  "name": "中药区块链服务平台",
+  "description": "中药区块链服务平台大屏可视化监控系统，展示链服务运行状态、节点共识、数据存证与智能合约等信息。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
