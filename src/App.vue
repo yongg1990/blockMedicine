@@ -567,7 +567,6 @@ const fallbackData: Record<string, ApiResult> = {
 const queryStatistic = async <T extends ApiResult>(bizCode: string): Promise<T> => {
   const requestBody = JSON.stringify({ groupCode: 'gz-screen3', bizCode, params: {} })
   const endpoint = '/api/stat/statistic/query'
-
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
