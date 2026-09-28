@@ -566,16 +566,15 @@ const fallbackData: Record<string, ApiResult> = {
 
 const queryStatistic = async <T extends ApiResult>(bizCode: string): Promise<T> => {
   const requestBody = JSON.stringify({ groupCode: 'gz-screen3', bizCode, params: {} })
-  const endpoints = ['/api/stat/statistic/query', 'https://smadev.simmed.cn/api/stat/statistic/query']
+  const endpoint = '/api/stat/statistic/query'
 
-  for (const endpoint of endpoints) {
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: requestBody,
       })
-      if (!response.ok) continue
+      if (!response.ok) throw new Error(`statistic query failed: ${response.status}`)
       const payload = (await response.json()) as ApiResponse<T> | T
       const body = payload && typeof payload === 'object' && !Array.isArray(payload)
         ? (payload as ApiResponse<T>)
@@ -583,14 +582,13 @@ const queryStatistic = async <T extends ApiResult>(bizCode: string): Promise<T> 
       const code = body?.code
       const acceptedCodes = new Set(['0', '200', '00000', '20000', 'success', 'SUCCESS'])
       if (body?.success === false || (code != null && !acceptedCodes.has(String(code)))) {
-        continue
+        throw new Error(`statistic query rejected: ${code}`)
       }
       const result = body?.result ?? body?.data ?? payload
       if (result != null) return result as T
     } catch {
-      // Continue to next endpoint
+      // Use local fallback data below when the same-origin request fails.
     }
-  }
 
   const fallback = fallbackData[bizCode]
   if (fallback != null) {
