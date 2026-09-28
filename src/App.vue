@@ -126,6 +126,7 @@ const chartPoints = computed(() => {
 
 const latestTrend = computed(() => trend[trend.length - 1] ?? { verify: 0, auth: 0 })
 const sourceOnline = computed(() => sourceStats.slice(0, 3).some((item) => item.value !== '--'))
+const sourceSystemName = ref('--')
 
 const getVerifyIcon = (label: string) => {
   if (label.includes('扫码')) return 'scan'
@@ -631,6 +632,7 @@ const refreshDynamicPanels = async () => {
 const refreshData = async () => {
   void refreshDynamicPanels()
   const results = await Promise.allSettled([
+    queryStatistic<Record<string, unknown>>('source_system'),
     queryStatistic<Record<string, unknown>>('chain_status'),
     queryStatistic<Record<string, unknown>>('chain_node'),
     queryStatistic<Array<Record<string, unknown>>>('chain_type'),
@@ -638,7 +640,12 @@ const refreshData = async () => {
     queryStatistic<Array<Record<string, unknown>>>('chain_newest'),
   ])
 
-  const [statusResult, nodeResult, typesResult, entitiesResult, newestResult] = results
+  const [sourceResult, statusResult, nodeResult, typesResult, entitiesResult, newestResult] = results
+  if (sourceResult.status === 'fulfilled') {
+    sourceSystemName.value = String(sourceResult.value['来源系统'] ?? '--')
+  } else {
+    console.warn('来源系统接口暂不可用', sourceResult.reason)
+  }
   const statusMap = statusResult.status === 'fulfilled' ? statusResult.value : undefined
   const nodeMap = nodeResult.status === 'fulfilled' ? nodeResult.value : undefined
 
@@ -867,11 +874,11 @@ onBeforeUnmount(() => {
             </div>
 
             <div class="source-tree-layout">
-              <!-- Top Main Hub Node (贵州省中药材质量追溯平台) -->
+              <!-- Top Main Hub Node -->
               <div class="source-main-card">
                 <div class="main-card-glow" aria-hidden="true"></div>
                 <div class="main-card-content">
-                  <b class="main-platform-name">贵州省中药材质量追溯平台</b>
+                  <b class="main-platform-name">{{ sourceSystemName }}</b>
                   <span class="main-platform-rate">接口可用率 {{ sourceOnline ? '100%' : '--' }}</span>
                 </div>
                 <div class="main-card-status">
